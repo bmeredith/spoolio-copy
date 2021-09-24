@@ -5,6 +5,6 @@ pep8
 pyflakes
 pylint
 pytest>=3.0.0
-pytest-capturelog
+pytest-catchlog
 pytest-cov
 pytest-django
