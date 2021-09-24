@@ -2,6 +2,7 @@ FROM python:2.7
 
 RUN apt-get update && apt-get -y install vim
 RUN apt-get install -y gettext
+RUN apt-get update && apt-get -y install gcc
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
