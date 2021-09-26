@@ -36,12 +36,12 @@ services:
       - ./requirements:/usr/src/app/requirements
       - ./pytest.ini:/usr/src/app/pytest.ini
     ports:
-      - "8000"
+      - 8000:8000
     env_file:
       - /opt/spool_secrets.local.env
     environment:
       CELERY_BROKER_URL: 'amqp://guest:guest@bugsbunny//'
-    command: uwsgi --socket :8000 --module web.wsgi
+    command: uwsgi --http-socket :8000 --module web.wsgi
 
   db:
     build: ./.db/
@@ -137,18 +137,18 @@ services:
       BIGCHAINDB_DATABASE_HOST: rdb
     command: bigchaindb start
 
-  bdocs:
-    build: .
-    volumes:
-      - .:/usr/src/app/
-    env_file:
-      - /opt/spool_secrets.local.env
-    working_dir: /usr/src/app/docs
-    command: make html
+#  bdocs:
+#    build: .
+#    volumes:
+#      - .:/usr/src/app/
+#    env_file:
+#      - /opt/spool_secrets.local.env
+#    working_dir: /usr/src/app/docs
+#    command: make html
 
-  vdocs:
-    image: nginx
-    ports:
-      - '38080:80'
-    volumes:
-      - ./docs/build/html:/usr/share/nginx/html
+#  vdocs:
+#    image: nginx
+#    ports:
+#      - '38080:80'
+#    volumes:
+#      - ./docs/build/html:/usr/share/nginx/html
