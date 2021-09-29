@@ -105,6 +105,8 @@ services:
       - /opt/spool_secrets.local.env
     environment:
       CELERY_BROKER_URL: 'amqp://guest:guest@bugsbunny//'
+    depends_on:
+      - db
     command: celery -A util beat
 
   mailhog:

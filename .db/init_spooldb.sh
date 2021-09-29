@@ -13,18 +13,18 @@ authMethod=md5
 #
 # Running CREATE EXTENSION in both template1 and postgres can lead to
 # the extensions having different eid's.
-gosu postgres psql --dbname template1 <<EOSQL
+psql --dbname template1 <<EOSQL
 	CREATE EXTENSION hstore;
 	DROP DATABASE postgres;
 	CREATE DATABASE postgres TEMPLATE template1;
 EOSQL
 
-gosu postgres psql <<EOSQL
+psql <<EOSQL
 	CREATE DATABASE "$SPOOL_DB" TEMPLATE template1;
 EOSQL
 echo
 
-gosu postgres psql <<EOSQL
+psql <<EOSQL
 	CREATE USER "$SPOOL_USER" WITH CREATEDB $pass;
 	GRANT ALL PRIVILEGES ON DATABASE "$SPOOL_DB" to "$SPOOL_USER";
 EOSQL
