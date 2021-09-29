@@ -41,6 +41,8 @@ services:
       - /opt/spool_secrets.local.env
     environment:
       CELERY_BROKER_URL: 'amqp://guest:guest@bugsbunny//'
+    depends_on:
+      - db
     command: uwsgi --http-socket :8000 --module web.wsgi
 
   db:
@@ -59,6 +61,7 @@ services:
     volumes:
       - data_volume:/var/lib/postgresql/data
     command: "true"
+
 
   nginx:
     restart: always
