@@ -6,15 +6,19 @@ from django.db import models, migrations
 
 def change_whitelabel_settings(apps, schema_editor):
     WhitelabelSettings = apps.get_model('whitelabel', 'WhitelabelSettings')
-    settings_23vivi = WhitelabelSettings.objects.get(subdomain='23vivi')
-    settings_polline = WhitelabelSettings.objects.get(subdomain='polline')
+    try:
+        settings_23vivi = WhitelabelSettings.objects.get(subdomain='23vivi')
+        settings_23vivi.acl_view_powered_by = False
+        settings_23vivi.save()
+    except WhitelabelSettings.DoesNotExist:
+        settings_23vivi = None
 
-    settings_23vivi.acl_view_powered_by = False
-    settings_polline.name = 'Polline'
-
-    settings_23vivi.save()
-    settings_polline.save()
-
+    try:
+        settings_polline = WhitelabelSettings.objects.get(subdomain='polline')
+        settings_polline.name = 'Polline'
+        settings_polline.save()
+    except WhitelabelSettings.DoesNotExist:
+        settings_polline = None
 
 class Migration(migrations.Migration):
 
