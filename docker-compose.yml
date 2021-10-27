@@ -69,7 +69,7 @@ services:
     volumes:
       - ./.nginx/conf.d:/etc/nginx/conf.d
     ports:
-      - "49880:80"
+      - "49999:80"
 
   rabbitmq:
     image: rabbitmq
